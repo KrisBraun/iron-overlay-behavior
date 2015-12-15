@@ -86,11 +86,12 @@ Custom property | Description | Default
     },
 
     /**
-     * Appends the backdrop to document body and sets its `z-index` to be below the latest overlay.
+     * Appends the backdrop to parent and sets its `z-index` to be below the latest overlay.
      */
-    prepare: function() {
-      if (!this.parentNode) {
-        Polymer.dom(document.body).appendChild(this);
+    prepare: function(parent) {
+      parent = parent || document.body;
+      if (this.parentNode !== parent) {
+        Polymer.dom(parent).appendChild(this);
         this.style.zIndex = this._manager.currentOverlayZ() - 1;
       }
     },
