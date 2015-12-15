@@ -341,9 +341,7 @@ context. You should place this element as a child of `<body>` whenever possible.
       }
 
       this.fire('iron-overlay-opened');
-
-      this._squelchNextResize = true;
-      this.async(this.notifyResize);
+      this.async(this.refit);
     },
 
     _finishRenderClosed: function() {
@@ -358,9 +356,6 @@ context. You should place this element as a child of `<body>` whenever possible.
       this._manager.focusOverlay();
 
       this.fire('iron-overlay-closed', this.closingReason);
-
-      this._squelchNextResize = true;
-      this.async(this.notifyResize);
     },
 
     _completeBackdrop: function() {
@@ -413,10 +408,6 @@ context. You should place this element as a child of `<body>` whenever possible.
     },
 
     _onIronResize: function() {
-      if (this._squelchNextResize) {
-        this._squelchNextResize = false;
-        return;
-      }
       if (this.opened) {
         this.refit();
       }

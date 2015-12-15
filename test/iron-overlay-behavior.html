@@ -136,6 +136,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           overlay.opened = true;
         });
 
+        test('open() refits overlay once', function(done) {
+          var spy = sinon.spy(overlay, 'refit');
+          overlay.open();
+          overlay.async(function(){
+            assert.equal(spy.callCount, 1, 'overlay is refit only once');
+            done();
+          }, 5);
+        });
+
         test('close an overlay quickly after open', function(done) {
           // first, open the overlay
           overlay.open();
